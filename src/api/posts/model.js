@@ -15,6 +15,9 @@ const PostSchema = new Schema({
         type: String,
         required: true
     },
+    picture: {
+        type: String,
+    },
 }, {
     timestamps: true,
     toJSON: {

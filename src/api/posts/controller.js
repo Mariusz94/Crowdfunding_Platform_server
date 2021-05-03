@@ -22,8 +22,22 @@ const getPosts = async ({query}, res, next) => {
     }
 };
 
+const getPost = async ({params}, res, next) => {
+    const idPar = params.postId;
+    try {
+        const posts = await Post.findById(idPar);
+        if (!posts) return res.status(404).json({error:"not found"}).end;
+
+        return res.status(200).json(posts);
+    } catch (e) {
+        next(e);
+    }
+};
+
+
 const destroyPost = async ({ params }, res, next) => {
     const idPar = params.postId;
+    console.log(idPar)
 
     try {
         const post = await Post.findById(idPar);
@@ -39,5 +53,5 @@ const destroyPost = async ({ params }, res, next) => {
 
 
 module.exports = {
-    createPost, getPosts, destroyPost
+    createPost, getPosts, getPost, destroyPost
 };

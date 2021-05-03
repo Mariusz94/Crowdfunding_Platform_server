@@ -1,5 +1,5 @@
 const { Router } = require('express');
-const { createComment, getComments, destroyComment } = require('./controller');
+const { createComment, getComments, destroyComment,destroyManyComment } = require('./controller');
 const cors = require('cors')
 
 const router = Router();
@@ -13,5 +13,7 @@ router.get('/:idPost', cors(),
 router.delete('/:idComment', cors(),
     destroyComment);
 
+router.delete('/post/:idPost', cors(),
+    destroyManyComment);
 
 module.exports = router;

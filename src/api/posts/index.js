@@ -1,5 +1,5 @@
 const { Router } = require('express');
-const { createPost, getPosts, destroyPost } = require('./controller');
+const { createPost, getPosts, getPost, destroyPost } = require('./controller');
 const cors = require('cors')
 
 const router = Router();
@@ -9,10 +9,10 @@ router.post('/', cors(),
 
 router.get('/', cors(),
     getPosts);
-/*
-router.get('/:id',
-    show);
 
+router.get('/:postId',
+    getPost);
+/*
 router.put('/:id',
     update);
 */

@@ -9,16 +9,30 @@ const createComment = async ({body}, res, next) => {
     }
 };
 
-const getComments = async ({query}, res, next) => {
-
+const getComments = async ({params}, res, next) => {
+    const idPostPar = params.idPost;
     try {
-        const comments = await Comment.find();
+        const comments = await Comment.find({whatPostComment: idPostPar});
         if (!comments) return res.status(404).json({error:"not found"}).end;
 
         return res.status(200).json(comments);
     } catch (e) {
         next(e);
     }
+};
+
+const destroyManyComment = async ({params}, res, next) => {
+    const idPostPar = params.idPost;
+
+    try {
+        const comment = await Comment.deleteMany({whatPostComment: idPostPar});
+
+        return res.status(200).json(comment);
+    } catch (e) {
+        next(e);
+    }
+
+    return res.status(404);
 };
 
 const destroyComment = async ({params}, res, next) => {
@@ -38,5 +52,5 @@ const destroyComment = async ({params}, res, next) => {
 
 
 module.exports = {
-    createComment, getComments, destroyComment
+    createComment, getComments, destroyComment, destroyManyComment
 };
